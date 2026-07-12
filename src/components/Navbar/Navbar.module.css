@@ -1,0 +1,174 @@
+/* ---- Fixed top bar ----------------------------------------- */
+.bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.25rem, 4vw, 3.5rem);
+  pointer-events: none; /* let clicks pass except on the controls */
+  transition: transform 0.35s var(--ease-soft);
+}
+
+.bar > * {
+  pointer-events: auto;
+}
+
+/* Tucked out of view when scrolling down through the content. */
+.hidden {
+  transform: translateY(-100%);
+}
+
+/* Always reveal the bar when a control inside it gains keyboard focus. */
+.bar:focus-within {
+  transform: translateY(0);
+}
+
+.logo {
+  font-family: var(--font-nav);
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: 0.14em;
+  color: var(--color-green);
+  /* White outline, matching the Hero wordmark (scaled to the logo size). */
+  -webkit-text-stroke: clamp(2px, 0.5vw, 3px) #fff;
+  paint-order: stroke fill;
+  filter: drop-shadow(0 2px 3px rgba(29, 27, 23, 0.18));
+  padding-right: 0.14em; /* balance the trailing letter-spacing */
+  transition: transform 0.25s var(--ease-soft);
+}
+
+.logo:hover {
+  transform: rotate(-2deg) scale(1.04);
+}
+
+/* ---- MENU / CLOSE pill button ------------------------------ */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1.25rem;
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-cream-soft);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 3px 0 rgba(29, 27, 23, 0.18);
+  transition:
+    transform 0.2s var(--ease-soft),
+    box-shadow 0.2s var(--ease-soft),
+    background-color 0.2s var(--ease-soft);
+}
+
+.toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 rgba(29, 27, 23, 0.2);
+  background-color: #fff;
+}
+
+.toggle:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 rgba(29, 27, 23, 0.2);
+}
+
+.toggleIcon {
+  display: block;
+}
+
+/* ---- Full-screen overlay ----------------------------------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  animation: fade-in 0.25s var(--ease-soft);
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: color-mix(in srgb, var(--color-overlay) 78%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.panel {
+  position: absolute;
+  top: calc(var(--nav-height) + 0.75rem);
+  right: clamp(1.25rem, 4vw, 3.5rem);
+  width: min(22rem, calc(100vw - 2.5rem));
+  padding: 2.25rem 2rem;
+  background-color: var(--color-menu-green);
+  border-radius: var(--radius-panel);
+  box-shadow: 0 24px 55px -18px rgba(20, 90, 10, 0.65);
+  transform-origin: top right;
+  animation: pop-in 0.3s var(--ease-soft);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.link {
+  display: block;
+  font-family: var(--font-nav);
+  font-size: clamp(1.9rem, 5vw, 2.4rem);
+  line-height: 1.02;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-menu-text);
+  transition:
+    transform 0.2s var(--ease-soft),
+    color 0.2s var(--ease-soft);
+}
+
+.link:hover {
+  transform: translateX(6px);
+  color: #fff;
+}
+
+/* Active section indicator. */
+.linkActive {
+  color: var(--color-orange);
+}
+
+.linkActive::before {
+  content: "› ";
+  color: var(--color-orange);
+}
+
+/* ---- Responsive -------------------------------------------- */
+@media (max-width: 600px) {
+  .panel {
+    left: clamp(1.25rem, 4vw, 3.5rem);
+    width: auto;
+    text-align: left;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
