@@ -2,19 +2,50 @@ import { useId, useState, type FormEvent } from "react";
 import { Section } from "../../components/Section/Section";
 import styles from "./Contact.module.css";
 
-/** Contact — a simple, accessible message form (no backend wired up yet). */
+/**
+ * Web3Forms access key. This value is public by design (it ships in the client
+ * bundle) and is tied to contact@gmeffect.com — submissions are emailed there.
+ * Get a free key at https://web3forms.com by entering contact@gmeffect.com.
+ */
+const WEB3FORMS_ACCESS_KEY = "35bb27dc-3a27-450d-b004-90e40ce76aed";
+
+type Status = "idle" | "submitting" | "success" | "error";
+
+/** Contact — an accessible message form that emails contact@gmeffect.com. */
 export function Contact() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
   const nameId = useId();
   const emailId = useId();
   const messageId = useId();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Front-end only for now: acknowledge and reset.
-    setSent(true);
-    event.currentTarget.reset();
+    const form = event.currentTarget;
+    setStatus("submitting");
+
+    const formData = new FormData(form);
+    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("subject", "New message from the Green Mouse Effect site");
+    formData.append("from_name", "Green Mouse Effect website");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = (await response.json()) as { success: boolean };
+      if (data.success) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
+
+  const submitting = status === "submitting";
 
   return (
     <Section
@@ -29,13 +60,23 @@ export function Contact() {
         get back to you.
       </p>
 
-      {sent ? (
+      {status === "success" ? (
         <div className={styles.success} role="status" aria-live="polite">
           <strong>Thanks!</strong>
           Your message is on its way. We'll be in touch soon.
         </div>
       ) : (
-        <form className={styles.form} onSubmit={handleSubmit} noValidate={false}>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          {/* Honeypot: hidden from users, catches spam bots that fill everything. */}
+          <input
+            type="checkbox"
+            name="botcheck"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ display: "none" }}
+          />
+
           <div className={styles.field}>
             <label className={styles.label} htmlFor={nameId}>
               Name
@@ -47,6 +88,7 @@ export function Contact() {
               type="text"
               autoComplete="name"
               required
+              disabled={submitting}
             />
           </div>
 
@@ -61,6 +103,7 @@ export function Contact() {
               type="email"
               autoComplete="email"
               required
+              disabled={submitting}
             />
           </div>
 
@@ -74,18 +117,26 @@ export function Contact() {
               name="message"
               rows={4}
               required
+              disabled={submitting}
             />
           </div>
 
-          <button className={styles.submit} type="submit">
-            Send
+          <button className={styles.submit} type="submit" disabled={submitting}>
+            {submitting ? "Sending…" : "Send"}
           </button>
+
+          {status === "error" && (
+            <p className={styles.error} role="alert">
+              Something went wrong. Please try again, or email us directly at{" "}
+              contact@gmeffect.com.
+            </p>
+          )}
         </form>
       )}
 
       <p className={styles.aside}>
         Prefer email? Write to{" "}
-        <a href="mailto:hello@greenmouseeffect.com">hello@greenmouseeffect.com</a>
+        <a href="mailto:contact@gmeffect.com">contact@gmeffect.com</a>
       </p>
     </Section>
   );
