@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import { Home } from "./Home/Home";
 import { About } from "./About/About";
 import { WebExtensions } from "./WebExtensions/WebExtensions";
+import { Support } from "./Support/Support";
 import { Contact } from "./Contact/Contact";
 
 /** A full-screen page of the site plus its navigation metadata. */
@@ -25,6 +26,7 @@ export const SECTIONS: readonly SiteSection[] = [
   { id: "home", label: "Home", Component: Home },
   { id: "about", label: "About", Component: About },
   { id: "web-extensions", label: "Web Extensions", Component: WebExtensions },
+  { id: "support-me", label: "Support me", Component: Support },
   { id: "contact", label: "Contact", Component: Contact },
 ] as const;
 
