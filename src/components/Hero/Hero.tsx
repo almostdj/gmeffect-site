@@ -17,7 +17,16 @@ export function Hero() {
         height={250}
       />
 
-      <h1 className={styles.title}>Green Mouse Effect</h1>
+      <div className={styles.titleWrap}>
+        <a
+          className={styles.support}
+          href="#support-me"
+          aria-label="Support Green Mouse Effect"
+        >
+          Support
+        </a>
+        <h1 className={styles.title}>Green Mouse Effect</h1>
+      </div>
       <p className={styles.subtitle}>Apps, Games and More</p>
 
       <a className={styles.scrollCue} href="#about" aria-label="Scroll to About">

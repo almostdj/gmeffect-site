@@ -32,6 +32,41 @@
   margin: 0;
 }
 
+/* Wraps the title so the "Support" link can anchor to its top-left corner. */
+.titleWrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* Decorative "Support" link tucked above-left of the wordmark, styled like
+   the main title (Mouse Memoirs, green fill + white outline) but smaller and
+   rotated. Scrolls to the Support section. */
+.support {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-6%, -72%) rotate(-14deg);
+  transform-origin: bottom left;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 4.5vw, 3.5rem);
+  line-height: 1;
+  color: var(--color-green);
+  -webkit-text-stroke: clamp(2px, 0.45vw, 4px) #fff;
+  paint-order: stroke fill;
+  filter: drop-shadow(0 6px 8px rgba(29, 27, 23, 0.16));
+  white-space: nowrap;
+  transition:
+    transform 0.25s var(--ease-soft),
+    color 0.25s var(--ease-soft);
+}
+
+.support:hover {
+  transform: translate(-6%, -72%) rotate(-14deg) scale(1.08);
+  color: var(--color-green-deep);
+}
+
 .subtitle {
   font-family: var(--font-display);
   font-weight: 400;
