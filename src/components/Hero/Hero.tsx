@@ -23,7 +23,7 @@ export function Hero() {
           href="#support-me"
           aria-label="Support Green Mouse Effect"
         >
-          Support
+          <span className={styles.supportInner}>Support</span>
         </a>
         <h1 className={styles.title}>Green Mouse Effect</h1>
       </div>

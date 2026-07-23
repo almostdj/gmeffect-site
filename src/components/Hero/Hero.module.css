@@ -67,6 +67,38 @@
   color: var(--color-green-deep);
 }
 
+/* Inner span carries the periodic shake, so the link's own positioning /
+   rotation / hover (also transforms) keep working independently. */
+.supportInner {
+  display: inline-block;
+  transform-origin: center;
+  animation: support-shake 5s var(--ease-soft) infinite;
+}
+
+/* Idle most of the cycle, then a quick wiggle "from time to time". */
+@keyframes support-shake {
+  0%,
+  85%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  87% {
+    transform: rotate(9deg) scale(1.07);
+  }
+  89.5% {
+    transform: rotate(-9deg) scale(1.07);
+  }
+  92% {
+    transform: rotate(7deg) scale(1.05);
+  }
+  94.5% {
+    transform: rotate(-6deg) scale(1.03);
+  }
+  97% {
+    transform: rotate(3deg) scale(1.02);
+  }
+}
+
 .subtitle {
   font-family: var(--font-display);
   font-weight: 400;
