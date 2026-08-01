@@ -18,6 +18,10 @@ export function Footer() {
               {section.label}
             </a>
           ))}
+          {/* A standalone page rather than a section, so it links by path. */}
+          <a href="/privacy" className={styles.link}>
+            Privacy
+          </a>
         </nav>
         <p className={styles.copy}>© {year} GME — All Rights Reserved</p>
       </div>
