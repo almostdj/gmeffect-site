@@ -154,7 +154,7 @@
       <a class="back" href="/">← Green Mouse Effect</a>
 
       <h1>Privacy Policy</h1>
-      <p class="updated">Last updated: 1 August 2026</p>
+      <p class="updated">Last updated: 2 August 2026</p>
 
       <p>
         This policy explains what happens to your information when you use the
@@ -184,13 +184,20 @@
         delete it at any time.
       </p>
 
-      <h3>Hosting</h3>
+      <h3>Hosting and analytics</h3>
       <p>
         The site is hosted on Cloudflare Pages. Like any web host, Cloudflare
         processes technical connection data such as your IP address and browser
-        user-agent in order to serve the pages and protect against abuse. We do
-        not have access to an analytics dashboard for this site and we do not
-        track individual visitors.
+        user-agent in order to serve the pages and protect against abuse.
+      </p>
+      <p>
+        We use <strong>Cloudflare Web Analytics</strong> to see aggregate
+        traffic: how many times a page was viewed, which sites link to us, and
+        broad country and device breakdowns. It sets no cookies, stores no
+        identifier on your device, and does not fingerprint your browser or
+        follow you across other sites. It tells us that a page was visited, not
+        who visited it. We do not build profiles and we do not track individual
+        visitors.
       </p>
 
       <h3>Fonts</h3>
@@ -217,7 +224,7 @@
       <h3>What the extension does not do</h3>
       <ul>
         <li>It does not create an account, and it never asks for a password.</li>
-        <li>It does not send us your identity, your username, or your IP address.</li>
+        <li>It does not send us your identity, your username, or your account details.</li>
         <li>It does not report which posts you view or which videos you download.</li>
         <li>It contains no analytics, telemetry, advertising or tracking code.</li>
         <li>It does not sell or share any data, because it collects none.</li>
@@ -247,11 +254,17 @@
         <li>
           <strong>Our lookup endpoint</strong> — X periodically changes an internal
           identifier that is required to request a video. The extension asks our
-          server for the current value. This request contains
-          <strong>no information about you</strong>: no account, no username, no
-          post, no download history, and no request body of any kind. Our server
-          returns a single identifier and stores nothing about the caller beyond
-          the ordinary, short-lived connection logs that any web server keeps.
+          server for the current value, and the server returns that one string.
+          The request carries <strong>nothing we could identify you by</strong>:
+          no account, no username, no post, no download history, and no request
+          body of any kind.
+          <br /><br />
+          To be precise about one thing: as with any request your browser makes
+          to any website, the connection itself reveals your IP address to our
+          host — that is unavoidable in how the web works, and no site can claim
+          otherwise. We do not use it, we do not link it to anything, and we keep
+          no record of who asked or of what was downloaded, beyond the ordinary
+          short-lived connection logs that any web server keeps.
         </li>
       </ul>
       <p>
