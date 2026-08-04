@@ -4,36 +4,22 @@ import styles from "./WebExtensions.module.css";
 
 interface Extension {
   id: string;
-  icon: string;
+  iconSrc: string;
   name: string;
   description: string;
   status: string;
+  href: string;
 }
 
 const EXTENSIONS: readonly Extension[] = [
   {
-    id: "video-button",
-    icon: "🎬",
-    name: "Video Saver",
+    id: "snaggle",
+    iconSrc: "/snaggle/icon.png",
+    name: "Snaggle",
     description:
-      "Adds a friendly one-click download button next to videos, with a built-in quality picker.",
+      "Downloads videos from X (Twitter). Adds a button to any post with video, lets you pick the quality, and shows live progress.",
     status: "Live",
-  },
-  {
-    id: "gif-grabber",
-    icon: "🖼️",
-    name: "GIF Grabber",
-    description:
-      "Resolves and saves high-quality clips from your favourite galleries without the clutter.",
-    status: "Live",
-  },
-  {
-    id: "feed-keeper",
-    icon: "📡",
-    name: "Feed Keeper",
-    description:
-      "Back up and browse your social feeds offline, on your terms — private by default.",
-    status: "Beta",
+    href: "/snaggle/",
   },
 ];
 
@@ -54,7 +40,13 @@ export function WebExtensions() {
 
       <div className={styles.grid}>
         {EXTENSIONS.map((ext) => (
-          <Card key={ext.id} icon={ext.icon} title={ext.name} tag={ext.status}>
+          <Card
+            key={ext.id}
+            iconSrc={ext.iconSrc}
+            title={ext.name}
+            tag={ext.status}
+            href={ext.href}
+          >
             {ext.description}
           </Card>
         ))}

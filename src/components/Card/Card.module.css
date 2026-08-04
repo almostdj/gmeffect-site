@@ -20,9 +20,28 @@
   box-shadow: 0 22px 40px -22px rgba(31, 154, 11, 0.6);
 }
 
+/* Whole-card link: strip the anchor's default text styling so it still reads
+   as a card, and give keyboard users a visible focus ring. */
+.linkCard {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.linkCard:focus-visible {
+  outline: 3px solid var(--color-green);
+  outline-offset: 3px;
+}
+
 .icon {
   font-size: 2.4rem;
   line-height: 1;
+}
+
+.iconImg {
+  width: 3.4rem;
+  height: 3.4rem;
+  object-fit: contain;
 }
 
 .title {
