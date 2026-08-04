@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Download Videos from X (Twitter) — Snaggle for Chrome</title>
+    <meta
+      name="description"
+      content="Snaggle is a free Chrome extension that downloads videos from X (Twitter). Adds a button to any post with video, lets you pick the resolution, and shows live progress. No account, no limits."
+    />
+    <link rel="canonical" href="https://gmeffect.com/snaggle/" />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gmeffect.com/snaggle/" />
+    <meta property="og:title" content="Snaggle — download videos from X (Twitter)" />
+    <meta
+      property="og:description"
+      content="A free Chrome extension that adds a download button to any X post with video. Pick your quality, watch the progress."
+    />
+    <meta property="og:image" content="https://gmeffect.com/snaggle/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Snaggle — download videos from X (Twitter)" />
+    <meta
+      name="twitter:description"
+      content="A free Chrome extension that adds a download button to any X post with video. Pick your quality, watch the progress."
+    />
+    <meta name="twitter:image" content="https://gmeffect.com/snaggle/og.jpg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--
+      SoftwareApplication earns the rich result showing price and category.
+      No aggregateRating: the listing has no ratings yet, and inventing one is
+      both dishonest and a structured-data penalty.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Snaggle",
+        "applicationCategory": "BrowserApplication",
+        "operatingSystem": "Chrome, Edge, Brave, Opera",
+        "description": "A free Chrome extension that downloads videos from X (Twitter). Adds a download button to any post with video, lets you choose the resolution, and shows live download progress.",
+        "url": "https://gmeffect.com/snaggle/",
+        "downloadUrl": "https://chromewebstore.google.com/detail/snaggle/kellolbfhjefegmgfgpakmfnfjjbpnpc",
+        "image": "https://gmeffect.com/snaggle/og.jpg",
+        "inLanguage": ["en", "de", "fr", "it", "es", "pt", "uk"],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "Green Mouse Effect",
+          "url": "https://gmeffect.com/"
+        }
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Snaggle free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, completely. There is no account, no sign-up, no monthly download limit, no ads and no premium tier. Every feature is available to everyone."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to sign in to anything?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not to Snaggle — it never asks for a password and has no account system. You do need to be signed in to X in your browser, because that is what lets you view the video in the first place."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where do the downloaded videos go?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Straight to your browser's normal Downloads folder, saved as an MP4 by Chrome's own download function. The file never passes through any server of ours."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I choose the video quality?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Snaggle lists every resolution X offers for that video — commonly 1080p, 720p, 360p and 270p — with an estimated file size next to each, so you can take full quality or a smaller file to save space and data."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does it ask for access to api.gmeffect.com?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "X periodically rotates an internal identifier that is required to request a video's files. Snaggle makes one small request to our own server to look up the current value. That request has no body and carries nothing about you, your account, the post you are viewing, or what you downloaded."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Snaggle collect my data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. There is no analytics, no telemetry and no tracking code of any kind. The only things stored are your chosen language and your X theme colour, both kept on your own device."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work in browsers other than Chrome?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Chromium-based browsers such as Microsoft Edge, Brave and Opera can install it directly from the Chrome Web Store."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <style>
+      :root {
+        --cream: #f4e6d3;
+        --cream-soft: #f8eee0;
+        --green: #35c518;
+        --green-deep: #1f9a0b;
+        --ink: #1d1b17;
+        --ink-soft: #4a463d;
+        --font-display: "Mouse Memoirs", "Arial Narrow", sans-serif;
+        --font-body: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, sans-serif;
+        color-scheme: light;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: var(--cream);
+        color: var(--ink);
+        font-family: var(--font-body);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wrap {
+        max-width: 52rem;
+        margin: 0 auto;
+        padding: clamp(1.5rem, 5vw, 3rem) clamp(1.25rem, 5vw, 2rem) 4rem;
+      }
+
+      .back {
+        display: inline-block;
+        margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+        font-family: var(--font-display);
+        font-size: 1.35rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--green-deep);
+        text-decoration: none;
+      }
+      .back:hover {
+        text-decoration: underline;
+      }
+
+      .hero {
+        display: flex;
+        gap: clamp(1rem, 4vw, 2rem);
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+      }
+      .hero img {
+        width: clamp(84px, 18vw, 132px);
+        height: auto;
+        flex-shrink: 0;
+      }
+      .hero-text {
+        flex: 1 1 18rem;
+      }
+
+      h1 {
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: clamp(2.4rem, 7.5vw, 4rem);
+        line-height: 1;
+        color: var(--green);
+        -webkit-text-stroke: clamp(3px, 0.6vw, 5px) #fff;
+        paint-order: stroke fill;
+        margin-bottom: 0.4rem;
+      }
+
+      .tagline {
+        font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+        color: var(--ink-soft);
+      }
+
+      h2 {
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: clamp(1.7rem, 4vw, 2.3rem);
+        line-height: 1.1;
+        color: var(--green-deep);
+        margin: 2.75rem 0 0.7rem;
+      }
+
+      h3 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin: 1.4rem 0 0.3rem;
+      }
+
+      p,
+      li {
+        color: var(--ink-soft);
+        margin-bottom: 0.9rem;
+      }
+
+      strong {
+        color: var(--ink);
+      }
+
+      ul,
+      ol {
+        margin: 0 0 0.9rem 1.35rem;
+      }
+      li {
+        margin-bottom: 0.5rem;
+      }
+
+      a {
+        color: var(--green-deep);
+      }
+
+      .cta {
+        display: inline-block;
+        margin: 0.5rem 0 0.25rem;
+        padding: 0.85rem 1.9rem;
+        background-color: var(--green-deep);
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 999px;
+        box-shadow: 0 4px 0 rgba(29, 27, 23, 0.25);
+      }
+      .cta:hover {
+        background-color: var(--green);
+      }
+      .cta-note {
+        font-size: 0.9rem;
+        color: var(--ink-soft);
+        margin-top: 0.6rem;
+      }
+
+      figure {
+        margin: 1.25rem 0 1.75rem;
+      }
+      figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 2px solid rgba(29, 27, 23, 0.12);
+        border-radius: 1rem;
+      }
+      figcaption {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--ink-soft);
+      }
+
+      .panel {
+        background-color: var(--cream-soft);
+        border: 2px solid rgba(29, 27, 23, 0.12);
+        border-radius: 1.25rem;
+        padding: 1.25rem 1.5rem;
+        margin: 1.25rem 0 1.5rem;
+      }
+      .panel p:last-child,
+      .panel ul:last-child {
+        margin-bottom: 0;
+      }
+
+      .faq h3 {
+        color: var(--ink);
+        margin-top: 1.6rem;
+      }
+
+      .foot {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(29, 27, 23, 0.25);
+        font-size: 0.9rem;
+        color: var(--ink-soft);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <a class="back" href="/">← Green Mouse Effect</a>
+
+      <header class="hero">
+        <img src="/snaggle/icon.png" alt="Snaggle" width="264" height="264" />
+        <div class="hero-text">
+          <h1>Download videos from X</h1>
+          <p class="tagline">
+            <strong>Snaggle</strong> is a free Chrome extension that saves videos
+            from X (Twitter) straight to your computer — in the quality you pick.
+          </p>
+        </div>
+      </header>
+
+      <p>
+        <a
+          class="cta"
+          href="https://chromewebstore.google.com/detail/snaggle/kellolbfhjefegmgfgpakmfnfjjbpnpc"
+          rel="noopener"
+          >Add to Chrome — free</a
+        >
+      </p>
+      <p class="cta-note">
+        Works in Chrome, Edge, Brave and Opera. No account, no sign-up, no limits.
+      </p>
+
+      <h2>How to download a video from X</h2>
+      <ol>
+        <li>Install Snaggle and open <strong>x.com</strong> as usual.</li>
+        <li>
+          Find any post with a video. Snaggle adds a download icon to that post's
+          action bar, right beside reply, repost and like.
+        </li>
+        <li>Click it. A menu lists the qualities available for that video.</li>
+        <li>
+          Pick one. The MP4 saves to your normal Downloads folder while a progress
+          card tracks it in the corner of the page.
+        </li>
+      </ol>
+
+      <figure>
+        <img
+          src="/snaggle/shot-button.jpg"
+          alt="The Snaggle download button in the action bar of a post on X"
+          width="1100"
+          height="688"
+          loading="lazy"
+        />
+        <figcaption>
+          The button sits in the post's own action bar — no copying links, no
+          pasting them into another website.
+        </figcaption>
+      </figure>
+
+      <h2>Pick your quality</h2>
+      <p>
+        Most downloaders decide for you. Snaggle lists every resolution X actually
+        offers for that video — commonly <strong>1080p, 720p, 360p and 270p</strong> —
+        with an estimated file size next to each one. Take the full-quality MP4, or
+        a smaller file to save space and data.
+      </p>
+
+      <figure>
+        <img
+          src="/snaggle/shot-quality.jpg"
+          alt="Snaggle's quality menu listing 1080p, 720p, 360p and 270p with estimated file sizes"
+          width="1100"
+          height="688"
+          loading="lazy"
+        />
+        <figcaption>Every available resolution, with the file size before you commit.</figcaption>
+      </figure>
+
+      <h2>Or use the toolbar</h2>
+      <p>
+        Opened a post in its own tab? Click the Snaggle icon in your browser
+        toolbar and download it from there instead. The popup speaks seven
+        languages and matches whichever X theme you use.
+      </p>
+
+      <figure>
+        <img
+          src="/snaggle/shot-popup.jpg"
+          alt="The Snaggle toolbar popup with a download button and language selector"
+          width="1100"
+          height="688"
+          loading="lazy"
+        />
+        <figcaption>The toolbar popup, for the post you already have open.</figcaption>
+      </figure>
+
+      <h2>Why Snaggle</h2>
+      <ul>
+        <li>
+          <strong>Genuinely free.</strong> No account, no sign-up, no monthly
+          download cap, no ads and no premium tier.
+        </li>
+        <li>
+          <strong>You choose the quality</strong>, and you see the file size before
+          you download.
+        </li>
+        <li>
+          <strong>Real progress.</strong> A live percentage from your browser's own
+          download, not a spinner that tells you nothing.
+        </li>
+        <li>
+          <strong>Blends into X.</strong> Snaggle detects which of X's three themes
+          you use — Default, Dim or Lights out — and restyles itself to match,
+          instantly, with no page reload.
+        </li>
+        <li>
+          <strong>Seven languages.</strong> English, German, French, Italian,
+          Spanish, Portuguese and Ukrainian, following your browser automatically.
+        </li>
+        <li>
+          <strong>Nothing collected.</strong> No analytics, no telemetry, no
+          tracking code.
+        </li>
+      </ul>
+
+      <h2>Privacy, briefly</h2>
+      <div class="panel">
+        <p>
+          Snaggle collects nothing about you. It asks x.com for the video files of
+          the post you clicked using the session you are already signed in with, so
+          it only ever sees what you can already see yourself. It makes one small
+          request to our own server to look up a technical identifier that X
+          rotates periodically — that request carries nothing about you, your
+          account, or what you downloaded.
+        </p>
+        <p>
+          The only things stored are your chosen language and your X theme colour,
+          both on your own device. Full details in the
+          <a href="/privacy/">privacy policy</a>.
+        </p>
+      </div>
+
+      <h2 id="faq">Questions</h2>
+      <div class="faq">
+        <h3>Is Snaggle free?</h3>
+        <p>
+          Yes, completely. There is no account, no sign-up, no monthly download
+          limit, no ads and no premium tier. Every feature is available to
+          everyone.
+        </p>
+
+        <h3>Do I need to sign in to anything?</h3>
+        <p>
+          Not to Snaggle — it never asks for a password and has no account system.
+          You do need to be signed in to X in your browser, because that is what
+          lets you view the video in the first place.
+        </p>
+
+        <h3>Where do the downloaded videos go?</h3>
+        <p>
+          Straight to your browser's normal Downloads folder, saved as an MP4 by
+          Chrome's own download function. The file never passes through any server
+          of ours.
+        </p>
+
+        <h3>Can I choose the video quality?</h3>
+        <p>
+          Yes. Snaggle lists every resolution X offers for that video — commonly
+          1080p, 720p, 360p and 270p — with an estimated file size next to each, so
+          you can take full quality or a smaller file to save space and data.
+        </p>
+
+        <h3>Why does it ask for access to api.gmeffect.com?</h3>
+        <p>
+          X periodically rotates an internal identifier that is required to request
+          a video's files. Snaggle makes one small request to our own server to look
+          up the current value. That request has no body and carries nothing about
+          you, your account, the post you are viewing, or what you downloaded.
+        </p>
+
+        <h3>Does Snaggle collect my data?</h3>
+        <p>
+          No. There is no analytics, no telemetry and no tracking code of any kind.
+          The only things stored are your chosen language and your X theme colour,
+          both kept on your own device.
+        </p>
+
+        <h3>Does it work in browsers other than Chrome?</h3>
+        <p>
+          Yes. Chromium-based browsers such as Microsoft Edge, Brave and Opera can
+          install it directly from the Chrome Web Store.
+        </p>
+      </div>
+
+      <h2>Support the project</h2>
+      <p>
+        Snaggle is free and always will be. If it saved you some time, you can
+        <a href="https://www.buymeacoffee.com/gmeffect" rel="noopener" target="_blank"
+          >buy me a coffee</a
+        >
+        — entirely optional, and it unlocks nothing, because there is nothing
+        locked.
+      </p>
+
+      <p>
+        <a
+          class="cta"
+          href="https://chromewebstore.google.com/detail/snaggle/kellolbfhjefegmgfgpakmfnfjjbpnpc"
+          rel="noopener"
+          >Add to Chrome — free</a
+        >
+      </p>
+
+      <p class="foot">
+        Snaggle is made by <a href="/">Green Mouse Effect</a>, an independent
+        studio. Not affiliated with, endorsed by, or sponsored by X Corp. X and
+        Twitter are trademarks of X Corp. Please respect the rights of the people
+        who make the videos you save. Questions:
+        <a href="mailto:contact@gmeffect.com">contact@gmeffect.com</a>.
+      </p>
+    </main>
+  </body>
+</html>

@@ -18,7 +18,10 @@ export function Footer() {
               {section.label}
             </a>
           ))}
-          {/* A standalone page rather than a section, so it links by path. */}
+          {/* Standalone pages rather than sections, so they link by path. */}
+          <a href="/snaggle/" className={styles.link}>
+            Snaggle
+          </a>
           <a href="/privacy" className={styles.link}>
             Privacy
           </a>
